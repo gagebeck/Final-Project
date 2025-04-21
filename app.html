@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snake Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #222;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5rem;
+    }
+
+    canvas {
+      background-color: #000;
+      display: block;
+      margin: 20px auto;
+      border: 5px solid #444;
+    }
+
+    .btn-back {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Gage Beck</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="resume.html">Résumé</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scratch.html">Creative Page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="app.html">Snake Game</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Game Section -->
+  <div class="container">
+    <h1>🎮 Snake Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <p>Use the arrow keys to play. Eat red apples. Speed increases every 5 points!</p>
+    <a href="scratch.html" class="btn btn-light btn-back">← Back to Creative Page</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light text-center p-3">
+    <p class="mb-0">© 2025 Gage Beck</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const gridSize = 20;
+    const tileCount = canvas.width / gridSize;
+
+    let snake = [{ x: 10, y: 10 }];
+    let velocity = { x: 0, y: 0 };
+    let food = randomPosition();
+    let score = 0;
+    let gameStarted = false;
+    let gameInterval = null;
+    let gameSpeed = 200;
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    function handleKeyPress(e) {
+      if (!gameStarted) {
+        gameStarted = true;
+        startGameLoop();
+      }
+
+      switch (e.key) {
+        case "ArrowUp":
+          if (velocity.y === 0) velocity = { x: 0, y: -1 };
+          break;
+        case "ArrowDown":
+          if (velocity.y === 0) velocity = { x: 0, y: 1 };
+          break;
+        case "ArrowLeft":
+          if (velocity.x === 0) velocity = { x: -1, y: 0 };
+          break;
+        case "ArrowRight":
+          if (velocity.x === 0) velocity = { x: 1, y: 0 };
+          break;
+      }
+    }
+
+    function startGameLoop() {
+      if (gameInterval) clearInterval(gameInterval);
+      gameInterval = setInterval(gameLoop, gameSpeed);
+    }
+
+    function gameLoop() {
+      const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
+
+      if (
+        head.x < 0 || head.y < 0 ||
+        head.x >= tileCount || head.y >= tileCount ||
+        snake.some(segment => segment.x === head.x && segment.y === head.y)
+      ) {
+        clearInterval(gameInterval);
+        alert("Game Over! Score: " + score);
+        resetGame();
+        return;
+      }
+
+      snake.unshift(head);
+
+      if (head.x === food.x && head.y === food.y) {
+        score++;
+        food = randomPosition();
+        if (score % 5 === 0 && gameSpeed > 60) {
+          gameSpeed -= 20;
+          startGameLoop();
+        }
+      } else {
+        snake.pop();
+      }
+
+      drawGame();
+    }
+
+    function drawGame() {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0f0";
+      snake.forEach(part => {
+        ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+      });
+
+      ctx.fillStyle = "red";
+      ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+    }
+
+    function randomPosition() {
+      return {
+        x: Math.floor(Math.random() * tileCount),
+        y: Math.floor(Math.random() * tileCount),
+      };
+    }
+
+    function resetGame() {
+      snake = [{ x: 10, y: 10 }];
+      velocity = { x: 0, y: 0 };
+      food = randomPosition();
+      score = 0;
+      gameSpeed = 200;
+      gameStarted = false;
+      gameInterval = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGame();
+    }
+
+    drawGame();
+  </script>
+</body>
+</html>

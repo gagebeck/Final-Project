@@ -1,0 +1,148 @@
+/* ===========================
+   GUITAR ROCK VIBE THEME
+=========================== */
+body {
+    background: linear-gradient(to right, #1b1b1b, #292929);
+    font-family: 'Segoe UI', sans-serif;
+    color: #eaeaea;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Layout */
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #f27329; /* warm orange like vintage guitar tones */
+  }
+  
+  /* Cards */
+  .card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 15px rgba(242, 115, 41, 0.2);
+  }
+  
+  .card h2 {
+    color: #f2a541;
+  }
+  
+  /* Lists */
+  ol, ul {
+    padding-left: 1.5rem;
+  }
+  
+  /* Images */
+  .responsive-img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 8px rgba(242, 165, 65, 0.5);
+  }
+  
+  /* Video */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  /* Info Blocks */
+  .blocks {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .block {
+    flex: 1 1 30%;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .block-one {
+    background-color: #ff7f50;
+    color: #1a1a1a;
+  }
+  
+  .block-two {
+    background-color: #a569bd;
+    color: #fff;
+  }
+  
+  .block-three {
+    background-color: #ffa500;
+    color: #1a1a1a;
+  }
+  
+  /* Links & Buttons */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f27329;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.2s;
+  }
+  
+  .btn:hover {
+    background-color: #d95e1e;
+  }
+  
+  .anchor-link {
+    display: block;
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: bold;
+    color: #f2a541;
+    text-decoration: none;
+  }
+  
+  .anchor-link:hover {
+    text-decoration: underline;
+  }
+  
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .bottom-heading {
+    text-align: center;
+    margin-top: 3rem;
+    color: #f2a541;
+  }
+  
